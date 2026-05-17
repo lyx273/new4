@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>廖新瀚别卷了 - 温馨提醒</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none; /* 避免选中文字，更清爽，可选 */
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(145deg, #1a472a 0%, #0e2a1a 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', 'PingFang SC', Roboto, 'Helvetica Neue', 'Noto Sans', system-ui, -apple-system, 'Microsoft YaHei', sans-serif;
+            padding: 1.5rem;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* 主卡片容器 */
+        .card {
+            max-width: 780px;
+            width: 100%;
+            background: rgba(255, 248, 225, 0.96);
+            backdrop-filter: blur(2px);
+            border-radius: 4rem 2rem 4rem 2rem;
+            box-shadow: 0 30px 45px rgba(0, 0, 0, 0.4), 0 8px 18px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255,255,240,0.8);
+            padding: 2.8rem 2rem 3.5rem;
+            text-align: center;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            border: 1px solid rgba(255,215,150,0.7);
+        }
+
+        .card:hover {
+            transform: scale(1.01);
+            box-shadow: 0 35px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        /* 主要文字区域：廖新瀚别卷了 */
+        .main-message {
+            margin-bottom: 2rem;
+        }
+
+        .jietext {
+            font-size: clamp(2.4rem, 12vw, 5.2rem);
+            font-weight: 900;
+            letter-spacing: 0.02em;
+            color: #2c2b28;
+            background: linear-gradient(135deg, #3b2b1f, #1f3a2b);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            text-shadow: 4px 4px 12px rgba(0,0,0,0.1);
+            line-height: 1.2;
+            transition: all 0.2s;
+        }
+
+        /* 略带幽默的情绪标语 */
+        .sub-line {
+            margin-top: 1rem;
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #b45f2b;
+            background: #fff3e0;
+            display: inline-block;
+            padding: 0.35rem 1.2rem;
+            border-radius: 60px;
+            backdrop-filter: blur(2px);
+            letter-spacing: 1px;
+            box-shadow: inset 0 0 2px #ffdd99, 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        /* 氛围插图：卷心菜 + 咖啡 可爱 emoji 装饰 */
+        .deco-zone {
+            display: flex;
+            justify-content: center;
+            gap: 2.2rem;
+            margin: 2rem 0 1.2rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .deco-item {
+            background: rgba(235, 215, 175, 0.5);
+            border-radius: 100px;
+            padding: 0.6rem 1rem 0.4rem;
+            font-size: 2.2rem;
+            backdrop-filter: blur(2px);
+            transition: transform 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .deco-item span:first-child {
+            font-size: 2rem;
+        }
+
+        .deco-item span:last-child {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #5a3e28;
+        }
+
+        .deco-item:hover {
+            transform: translateY(-4px);
+        }
+
+        /* 互动小按钮：再提醒一次 */
+        .reminder-btn {
+            margin-top: 2rem;
+            background: #f3cf7a;
+            border: none;
+            padding: 0.8rem 1.8rem;
+            font-size: 1rem;
+            font-weight: 600;
+            font-family: inherit;
+            color: #2c2b1f;
+            border-radius: 60px;
+            cursor: pointer;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            backdrop-filter: blur(2px);
+        }
+
+        .reminder-btn:hover {
+            background: #ffdf8c;
+            transform: scale(0.97);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        }
+
+        .reminder-btn:active {
+            transform: scale(0.96);
+        }
+
+        /* 小彩蛋提示 */
+        .footer-note {
+            margin-top: 2.5rem;
+            font-size: 0.75rem;
+            color: #b2946c;
+            border-top: 1px dashed #ecd9b4;
+            padding-top: 1.2rem;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-note span {
+            background: #faf0e0;
+            padding: 0.2rem 0.8rem;
+            border-radius: 30px;
+        }
+
+        /* 随机浮动小点 (轻松气氛) */
+        .bg-bubble {
+            position: absolute;
+            background: rgba(245, 220, 150, 0.2);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+            animation: float 12s infinite alternate ease-in-out;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0px) translateX(0px);
+            }
+            100% {
+                transform: translateY(-25px) translateX(15px);
+            }
+        }
+
+        /* 手机适应 */
+        @media (max-width: 550px) {
+            .card {
+                padding: 2rem 1.2rem 2.8rem;
+                border-radius: 2rem 1.2rem 2rem 1.2rem;
+            }
+            .deco-zone {
+                gap: 1rem;
+            }
+            .deco-item {
+                padding: 0.4rem 0.8rem;
+                font-size: 1.4rem;
+            }
+            .deco-item span:first-child {
+                font-size: 1.4rem;
+            }
+            .reminder-btn {
+                padding: 0.6rem 1.2rem;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 一些浮动背景装饰气泡 增加趣味 -->
+    <div class="bg-bubble" style="width: 180px; height: 180px; bottom: -40px; left: -50px; opacity: 0.3; animation-duration: 18s;"></div>
+    <div class="bg-bubble" style="width: 240px; height: 240px; top: -70px; right: -60px; opacity: 0.25; animation-duration: 14s; animation-delay: -2s;"></div>
+    <div class="bg-bubble" style="width: 100px; height: 100px; bottom: 20%; right: 8%; opacity: 0.2; animation-duration: 20s; animation-delay: -5s;"></div>
+    <div class="bg-bubble" style="width: 130px; height: 130px; top: 18%; left: 5%; opacity: 0.2; animation-duration: 16s;"></div>
+
+    <div class="card">
+        <!-- 主要视觉焦点：廖新瀚别卷了 (已将杰哥替换为廖新瀚) -->
+        <div class="main-message">
+            <div class="jietext">廖新瀚别卷了</div>
+            <div class="sub-line">⚡ 休息一下，生活更从容 ⚡</div>
+        </div>
+
+        <!-- 幽默装饰元素: 卷不动了 和 躺平警示 -->
+        <div class="deco-zone">
+            <div class="deco-item">
+                <span>🥬</span>
+                <span>卷心菜累了</span>
+            </div>
+            <div class="deco-item">
+                <span>☕</span>
+                <span>咖啡续命中</span>
+            </div>
+            <div class="deco-item">
+                <span>😴</span>
+                <span>适度内卷</span>
+            </div>
+        </div>
+
+        <!-- 安抚 / 玩笑按钮 点击出现温暖弹窗提醒 -->
+        <button class="reminder-btn" id="relaxBtn">🌸 别卷啦，歇会儿 🌸</button>
+
+        <!-- 脚注，一点点俏皮话-->
+        <div class="footer-note">
+            <span>✨ 拒绝无效内卷 ✨</span>
+            <span>🐟 偶尔摸鱼，灵感爆棚 🐟</span>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            // 获取按钮元素
+            const relaxButton = document.getElementById('relaxBtn');
+            
+            // 友好提醒文案库 (让每次点击有些小变化，名字动态适配廖新瀚)
+            // 文案里替换为更个性化的提醒
+            const friendlyMessages = [
+                "🧡 廖新瀚，你已经足够优秀啦，让身心喘口气~",
+                "🌿 停下脚步看看窗外，世界不只有KPI和进度条。",
+                "🍃 真正的强者懂得平衡，廖新瀚休息一下再战更高效。",
+                "💤 早睡早起，明天灵感自然会来，别太卷了廖新瀚。",
+                "🌟 偶尔'躺平'十分钟，是为了更好的冲刺呀，廖新瀚。",
+                "🍵 喝杯温水，做个伸展，廖新瀚你超棒的！",
+                "📖 读一页闲书，听一首老歌，别让自己太紧绷。",
+                "🌸 你已经跑得很远了，歇一歇，风景很美～廖新瀚加油！",
+                "🎈 能量需要恢复，廖新瀚别卷了，给自己一个微笑。",
+                "🍭 身体是革命的本钱，放松才能走更远的路，廖新瀚同学。",
+                "🍀 人生不是短跑，是马拉松，廖新瀚稍微放慢节奏吧。",
+                "⭐ 休息不是偷懒，是给大脑充电，廖新瀚今天也要轻松一点。"
+            ];
+            
+            // 随机提醒函数
+            function showGentleReminder() {
+                // 随机选取一个消息
+                const randomIndex = Math.floor(Math.random() * friendlyMessages.length);
+                const msg = friendlyMessages[randomIndex];
+                
+                // 创建临时提示框 (优雅小弹框，取代原生alert减少打扰感，但依然亲切)
+                // 为了避免多个弹窗堆叠，先检查是否有存在的toast移除
+                const existingToast = document.querySelector('.custom-toast-msg');
+                if(existingToast) {
+                    existingToast.remove();
+                }
+                
+                const toast = document.createElement('div');
+                toast.className = 'custom-toast-msg';
+                toast.textContent = msg;
+                // 设计样式
+                toast.style.position = 'fixed';
+                toast.style.bottom = '25%';
+                toast.style.left = '50%';
+                toast.style.transform = 'translateX(-50%)';
+                toast.style.backgroundColor = '#2e241f';
+                toast.style.color = '#fef0cf';
+                toast.style.padding = '12px 28px';
+                toast.style.borderRadius = '60px';
+                toast.style.fontSize = '1rem';
+                toast.style.fontWeight = '500';
+                toast.style.fontFamily = "'Segoe UI', 'PingFang SC', Roboto, system-ui, sans-serif";
+                toast.style.boxShadow = '0 10px 20px rgba(0,0,0,0.25)';
+                toast.style.zIndex = '9999';
+                toast.style.backdropFilter = 'blur(8px)';
+                toast.style.border = '1px solid #efc48c';
+                toast.style.letterSpacing = '0.5px';
+                toast.style.whiteSpace = 'nowrap';
+                toast.style.maxWidth = '85vw';
+                toast.style.whiteSpace = 'normal';
+                toast.style.textAlign = 'center';
+                toast.style.lineHeight = '1.4';
+                toast.style.opacity = '0';
+                toast.style.transition = 'opacity 0.2s ease';
+                
+                document.body.appendChild(toast);
+                
+                // 淡入动画
+                setTimeout(() => {
+                    toast.style.opacity = '1';
+                }, 10);
+                
+                // 3秒后淡出移除
+                setTimeout(() => {
+                    toast.style.opacity = '0';
+                    setTimeout(() => {
+                        if(toast.parentNode) toast.parentNode.removeChild(toast);
+                    }, 200);
+                }, 2800);
+            }
+            
+            // 绑定点击事件
+            if(relaxButton) {
+                relaxButton.addEventListener('click', showGentleReminder);
+            }
+            
+            // 额外补充一个彩蛋: 双击主文字区域时也会触发 温馨提醒，更有趣
+            const mainTextElement = document.querySelector('.jietext');
+            if(mainTextElement) {
+                mainTextElement.addEventListener('dblclick', function(e) {
+                    e.stopPropagation();
+                    showGentleReminder();
+                    // 再加一个小晃动效果
+                    this.style.transform = 'scale(0.98)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 150);
+                });
+                // 鼠标悬浮效果
+                mainTextElement.style.cursor = 'pointer';
+                mainTextElement.title = '双击我也可收获暖心提醒 💖';
+            }
+            
+            // 针对卡片区域任意点击也有一个小提醒？为了不太过打扰，但只双击文字就好，不过再加一个控制台快乐日志（不影响体验）
+            console.log("%c🌸 廖新瀚别卷啦！页面已经为你加载，专属治愈卡片已送达 🌸", "color: #b87c4f; font-size: 14px; font-weight: bold;");
+            console.log("%c卷是有限度的，廖新瀚，生活和热爱才是永恒的动力~", "color: #5d874f;");
+        })();
+    </script>
+    <!-- 
+        设计说明：
+        1. 核心诉求：按照要求将“杰哥”替换为“廖新瀚”，页面醒目显示“廖新瀚别卷了”。
+        2. 风格轻松治愈，暗绿色渐变模拟自然舒心氛围，卡片复古暖色。
+        3. 增加俏皮按钮及双击主文字的小彩蛋，让交互不仅展示文字，还能传递“别卷”核心理念，并且提醒文案中加入了廖新瀚的名字，更个性化。
+        4. 完全自包含HTML/CSS/JS，兼容移动端桌面端。
+    -->
+</body>
+</html>
